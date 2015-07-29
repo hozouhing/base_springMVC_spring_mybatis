@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeff.mapper.BlogMapper">
+
+  <insert id="insert" parameterType="User">
+  	insert into `blog` 
+  	(id,content,author_id) 
+  	values 
+  	(#{id},#{content},#{authorId})
+  </insert>	
+ 
+  <select id="selectById" parameterType="String" resultType="User">
+    select *,author_id as authorId from `blog` where id = #{id}
+  </select>
+  
+  <update id="update" parameterType="Blog">
+  	update `blog` set
+  	content = #{content},
+  	author_id = #{authorId}
+  	where id = #{id}
+  </update>
+  
+  <delete id="delete" parameterType="String">
+  	delete from `blog` where id = #{id} 
+  </delete>
+  
+  
+</mapper>

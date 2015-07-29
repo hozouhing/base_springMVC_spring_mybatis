@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeff.mapper.GroupMapper">
+
+	<select id="fetch" resultMap="fetchGroup">
+		select 
+		u.id as uId,
+		u.username as uUsername,
+		u.password as uPassword,
+		u.g_id as uGId,
+		g.id as gId,
+		g.name as gName,
+		b.id as bId,
+		b.content as bContent,
+		b.author_id as authorId 
+		from `group` g 
+		left join `user` u on u.g_id = g.id
+	    left join `blog` b on b.author_id = u.id
+		where g.id = #{id}
+	</select>
+	
+	<resultMap type="Group" id="fetchGroup">
+		<id property="id" column="gId"/>
+		<result property="name" column="gName"/>
+		<collection property="users" javaType="ArrayList" ofType="User">
+			<id property="id" column="uId"/>
+			<result property="username" column="uUsername"/>
+			<result property="password" column="uPassword"/>
+			<result property="gId" column="uGId"/>
+			<collection property="blogs" ofType="Blog">
+				<id property="id" column="bId"/>
+				<result property="content" column="bContent"/>
+				<result property="authorId" column="authorId"/>
+			</collection>
+		</collection>
+	</resultMap>
+ 	
+  
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeff.mapper.UserMapper">
+
+  <insert id="insert" parameterType="User">
+  	insert into `user` 
+  	(`id`,`username`,`password`) 
+  	values 
+  	(#{id},#{username},#{password})
+  </insert>	
+ 
+  <select id="getById" parameterType="String" resultType="User">
+    select *,g_id as gId from `user` where id = #{id}
+  </select>
+  
+  <delete id="deleteById" parameterType="String">
+  	delete from `user` where id = #{id}
+  </delete>
+  
+  <update id="update" parameterType="User">
+  	update `user` set 
+  	username = #{username},
+  	password = #{password}
+  	where id = #{id}
+  </update>
+  
+  <select id="list" parameterType="User" resultType="ArrayList">
+  	select * from `user`
+  </select>
+  
+  <select id="findByPage" parameterType="User" resultType="ArrayList">
+  	select * from `user`
+  </select>
+ 
+ <!--  <select id="fetch" parameterType="String" resultMap="fetchUser">
+  	select 
+  	u.id as uId,
+  	u.username as uUsername,
+  	u.password as uPassword,
+  	u.g_id as uGId,
+  	g.id as gId,
+  	g.name as gName
+  	from `user` as u , `group` as g where u.g_id = g.id and u.id = #{id}
+  </select>
+  
+  <resultMap type="User" id="fetchUser">
+	  <id property="id" column="uId"/>
+	  <result property="username" column="uUsername"/>
+	  <result property="password" column="uPassword"/>
+	  <result property="gId" column="uGId"/>
+	  <association property="group" javaType="Group">
+	  	<id property="id" column="gId"/>
+	  	<result property="name" column="gName"/>
+	  </association>
+  </resultMap> -->
+  
+  
+  
+</mapper>
